@@ -8,20 +8,19 @@ async function setLightState(lightId, on) {
     return await response.json();
 }
 
-export async function switchOnLight(lightId) {
-    return await setLightState(lightId, true);
-}
-
-export async function switchOffLight(lightId) {
-    return await setLightState(lightId, false);
-}
-
-export async function getLightInfo(lightId) {
-    const response = await fetch(`http://${config.bridgeIP}/api/${config.apiUser}/lights/${lightId}`);
-    return await response.json();
-}
-
-export async function getLights() {
-    const response = await fetch(`http://${config.bridgeIP}/api/${config.apiUser}/lights`);
-    return await response.json();
+export default {
+    async switchOnLight(lightId) {
+        return await setLightState(lightId, true);
+    },
+    async switchOffLight(lightId) {
+        return await setLightState(lightId, false);
+    },
+    async getLightInfo(lightId) {
+        const response = await fetch(`http://${config.bridgeIP}/api/${config.apiUser}/lights/${lightId}`);
+        return await response.json();
+    },
+    async getLights() {
+        const response = await fetch(`http://${config.bridgeIP}/api/${config.apiUser}/lights`);
+        return await response.json();
+    }
 }
