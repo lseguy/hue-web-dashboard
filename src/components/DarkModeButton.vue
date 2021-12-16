@@ -3,21 +3,22 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+
 export default {
   name: 'DarkModeButton',
-  props: {
-    enabled: Boolean,
-  },
-  emits: ['clicked'],
   computed: {
+    ...mapState('darkMode', [
+      'enabled'
+    ]),
     text() {
       return `${this.enabled ? "Disable" : "Enable"} Dark Mode`;
     },
   },
   methods: {
-    toggle() {
-        this.$emit('clicked', !this.enabled);
-    }
+    ...mapMutations('darkMode', [
+      'toggle'
+    ]),
   },
 }
 </script>
