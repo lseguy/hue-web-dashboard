@@ -34,6 +34,12 @@ export default {
     async getLights() {
         return await apiCall(`/lights`);
     },
+    async getRooms() {
+        const groups = await apiCall(`/groups`);
+        return Object.fromEntries(
+            Object.entries(groups).filter(([, value]) => value.type === 'Room')
+        );
+    },
     async setLightBrightness(lightId, brightness) {
         await apiCall(`/lights/${lightId}/state`, {
             method: 'PUT',

@@ -4,24 +4,14 @@
       <h1 class="text-3xl dark:text-gray-50">Hue Dashboard</h1>
       <DarkModeButton></DarkModeButton>
     </div>
-    <Grid>
-      <LightButton
-        v-for="(light, index) in lights"
-        :key="light.name"
-        :light="light"
-        @clicked="toggleLight({ lightId: index })"
-        @wheelDown="dimLight({ lightId: index })"
-        @wheelUp="increaseLight({ lightId: index })"
-      ></LightButton>
-    </Grid>
+    <Room v-for="room in rooms" :room="room" :key="room.name"></Room>
   </div>
 </template>
 
 <script>
-import Grid from './components/Grid.vue'
-import LightButton from './components/LightButton.vue'
-import DarkModeButton from './components/DarkModeButton.vue';
-import { mapActions, mapState } from 'vuex';
+import Room from './components/Room.vue'
+import DarkModeButton from './components/DarkModeButton.vue'
+import HueApi from './api'
 
 const darkModeWatcher = (newValue) => {
   if (newValue) {
@@ -34,9 +24,8 @@ const darkModeWatcher = (newValue) => {
 export default {
   name: 'App',
   components: {
-    LightButton,
     DarkModeButton,
-    Grid,
+    Room,
   },
   beforeCreate() {
     this.$store.commit('darkMode/loadLocalStorage');
@@ -47,15 +36,13 @@ export default {
     );
   },
   mounted() {
+    HueApi.getRooms().then(rooms => this.rooms = rooms);
     this.$store.dispatch('fetchLights');
   },
-  computed: {
-    ...mapState([
-      'lights',
-    ]),
-  },
-  methods: {
-    ...mapActions(['toggleLight', 'dimLight', 'increaseLight']),
+  data() {
+    return {
+      rooms: [],
+    };
   },
 }
 </script>
