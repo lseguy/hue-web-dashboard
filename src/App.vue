@@ -1,6 +1,6 @@
 <template>
-  <div class="m-3">
-    <div class="mt-5 mb-7 flex flex-row place-content-between items-center">
+  <div class="m-5">
+    <div class="mt-5 mb-10 flex flex-row place-content-between items-center">
       <h1 class="text-3xl dark:text-gray-50">Hue Dashboard</h1>
       <DarkModeButton></DarkModeButton>
     </div>
@@ -8,9 +8,10 @@
       <LightButton
         v-for="(light, index) in lights"
         :key="light.name"
-        :name="light.name"
-        :enabled="light.state.on"
+        :light="light"
         @clicked="toggleLight({ lightId: index })"
+        @wheelDown="dimLight({ lightId: index })"
+        @wheelUp="increaseLight({ lightId: index })"
       ></LightButton>
     </Grid>
   </div>
@@ -54,7 +55,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(['toggleLight']),
+    ...mapActions(['toggleLight', 'dimLight', 'increaseLight']),
   },
 }
 </script>

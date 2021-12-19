@@ -34,4 +34,10 @@ export default {
     async getLights() {
         return await apiCall(`/lights`);
     },
+    async setLightBrightness(lightId, brightness) {
+        await apiCall(`/lights/${lightId}/state`, {
+            method: 'PUT',
+            body: JSON.stringify({bri: brightness}),
+        });
+    },
 }
