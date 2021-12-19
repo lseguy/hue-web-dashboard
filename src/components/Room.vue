@@ -7,8 +7,8 @@
         :key="light.name"
         :light="light"
         @clicked="toggleLight({ lightId: index })"
-        @wheelDown="dimLight({ lightId: index })"
-        @wheelUp="increaseLight({ lightId: index })"
+        @wheelDown="dimLight(index)"
+        @wheelUp="increaseLight(index)"
       ></LightButton>
     </div>
   </div>
@@ -36,7 +36,17 @@ export default {
       },
     },
     methods: {
-      ...mapActions(['toggleLight', 'dimLight', 'increaseLight']),
+      ...mapActions(['toggleLight']),
+      dimLight(lightId) {
+        if (this.lights[lightId].state.on) {
+          this.$store.dispatch('dimLight', { lightId });
+        }
+      },
+      increaseLight(lightId) {
+        if (this.lights[lightId].state.on) {
+          this.$store.dispatch('increaseLight', { lightId });
+        }
+      },
     },
 }
 </script>
