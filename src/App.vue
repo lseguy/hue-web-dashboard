@@ -4,12 +4,12 @@
       <h1 class="text-3xl dark:text-gray-50">Hue Dashboard</h1>
       <DarkModeButton></DarkModeButton>
     </div>
-    <Room v-for="room in rooms" :room="room" :key="room.name"></Room>
+    <RoomGroup v-for="room in rooms" :room="room" :key="room.name"></RoomGroup>
   </div>
 </template>
 
 <script>
-import Room from './components/Room.vue'
+import RoomGroup from './components/RoomGroup.vue'
 import DarkModeButton from './components/DarkModeButton.vue'
 import HueApi from './api'
 
@@ -25,7 +25,7 @@ export default {
   name: 'App',
   components: {
     DarkModeButton,
-    Room,
+    RoomGroup,
   },
   beforeCreate() {
     this.$store.commit('darkMode/loadLocalStorage');

@@ -20,7 +20,7 @@ import { mapActions } from 'vuex'
 import _ from 'lodash'
 
 export default {
-    name: 'Room',
+    name: 'RoomGroup',
     components: {
       LightButton,
     },
